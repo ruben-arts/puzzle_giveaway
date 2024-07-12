@@ -1,0 +1,13 @@
+[project]
+name = "puzzle_giveaway"
+version = "0.1.0"
+description = "Add a short description here"
+authors = ["Ruben Arts <ruben.arts@hotmail.com>"]
+channels = ["conda-forge"]
+platforms = ["win-64"]
+
+[tasks]
+pick = "python main.py"
+
+[dependencies]
+requests = ">=2.32.3,<2.33"
