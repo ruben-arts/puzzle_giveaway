@@ -22,7 +22,7 @@ def get_issue_reactions(owner, repo, issue_number, token):
         raise Exception(f"Error fetching reactions: {response.status_code} - {response.text}")
 
 def pick_random_user(reactions):
-    users = [reaction['user']['login'] for reaction in reactions]
+    users = [reaction['user']['login'] for reaction in reactions if reaction['content'] == '+1']
     if users:
         return random.choice(users)
     else:
@@ -37,7 +37,8 @@ def print_reactions_nicely(reactions):
     for reaction in reactions:
         user = reaction['user']['login']
         content = reaction['content']
-        print(f'User: {user} | Reaction: {content}')
+        if content == '+1':
+            print(f'User: {user} | Reaction: {content}')
 
 def main():
     try:
@@ -45,7 +46,7 @@ def main():
         print_reactions_nicely(reactions)
         random_user = pick_random_user(reactions)
         if random_user:
-            print(f'Randomly selected user: {random_user}')
+            print(f'\033[1;32mRandomly selected user: {random_user}\033[0m')
         else:
             print('No reactions found.')
     except Exception as e:
